@@ -1,0 +1,110 @@
+{
+  "timeStep": 0.01,
+  "conveyor": {
+      "speed": [
+          70.83333333333333,
+          212.5
+      ],
+      "accel": [
+          20000.0,
+          20000.0
+      ],
+      "inDirection": [
+          -1,
+          0
+      ],
+      "outDirection": [
+          -1,
+          0
+      ],
+      "isSingleColor": true,
+      "length": 3000,
+      "nbInConveyor": 2,
+      "nbOutConveyor": 1,
+      "rowSpacing": 60,
+      "badProductRatio": 0.2,
+      "errorMargin": 1.5,
+      "conveyorOffset": 25,
+      "xOffset": 100,
+      "inItemsPerRow": [
+          6,
+          6
+      ],
+      "inEndPos": [
+          [
+              0,
+              293.5
+          ],
+          [
+              0,
+              1020.5
+          ]
+      ],
+      "inWidth": [
+          387,
+          387
+      ],
+      "nPackagesRow": 3,
+      "packagesRowSplitting": true,
+      "rowSplitSpacing": 40,
+      "outItemsPerRow": [
+          4
+      ],
+      "outEndPos": [
+          [
+              0,
+              657.0
+          ]
+      ],
+      "outWidth": [
+          290
+      ],
+      "dropOffset": 50
+  },
+  "slider": {
+      "speed": [
+          2500,
+          5000,
+          5000
+      ],
+      "accel": [
+          20000.0,
+          40000.0,
+          40000.0
+      ],
+      "max_jerk": [
+          250000.0,
+          400000.0,
+          400000.0
+      ],
+      "width": 120,
+      "armWidth": 20,
+      "reach": 100,
+      "reachOffset": 40,
+      "depth": 100,
+      "slidersPerRail": 2,
+      "safetyMargin": 10
+  },
+  "beam": {
+      "spacing": 420,
+      "direction": [
+          0,
+          1
+      ],
+      "width": 100,
+      "length": 1500,
+      "nbOfBeams": 6,
+      "workspaceSide": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1
+      ],
+      "firstBeamPos": 600
+  },
+  "target": {
+      "width": 50
+  }
+}

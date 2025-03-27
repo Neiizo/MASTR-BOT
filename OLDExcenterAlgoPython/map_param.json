@@ -1,0 +1,46 @@
+{
+    "map": {
+        "minX": 0,
+        "maxX": 1520,
+        "minY": 0,
+        "maxY": 920
+    },
+    "dropRegion": {
+        "startXPosition": 50,
+        "width": 650
+    },
+    "conveyor": {
+        "width": 650,
+        "endXPosition": 1420
+    },
+    "target": {
+        "targetPerRow": 8,
+        "targetXSpacing": 65,
+        "targetYSpacing": 25,
+        "xOffset": 40
+    },
+    "dropTarget": {
+        "pattern": "circle",
+        "nbPatternPerRow": 2,
+        "patternSpacing": 250,
+        "xOffset": 200,
+        "nbTargetPerPattern": 5,
+        "patternWidth": 200
+    },
+    "slider": {
+        "armLength": 70,
+        "carriageWidth": 100,
+        "firstCableLength": 1200,
+        "cableLength": 300,
+        "safetyMargin": 10,
+        "pickUpArea": 32
+    },
+    "beam": {
+        "nbYAxis": 1,
+        "isDualRailPerAxis": true,
+        "railOffset": 60,
+        "axisSpacing": 400,
+        "firstAxisYPos": 200,
+        "nbSliderPerRail": 2
+    }
+}
