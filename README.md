@@ -90,6 +90,8 @@ Finally, if only one of the two sliders has been assigned a target at a given ti
 ### The state-bouncing
 
 The state-bouncing is an improvement brought to the control algorithm after visually inspecting the simulations. The goal of this method is to prevent idle time when we can by attempting both picking and placing at the same time.
+https://github.com/Neiizo/MASTR-BOT/tree/main/img/whystatebouncing.mp4
+![Video showcasing why we need the state bouncing](/img/whystatebouncing.mp4)
 
 ![Video showcasing why we need the state bouncing](/img/whystatebouncing.mp4)
 As seen in the video above, there are scenarios where only one of the two sliders pick a target, and then, we wait for the others to finally find a suitable target. However, in some cases, we may have time to go place the first target, and come back to the current conveyor, before the next one is available. To determine whether we can, we first try to do the current action, here picking, with a larger looking range which simulates a back and forth movement to the other conveyor. Then, if it wasn't succesful, we check whether we can do the other action, which is, here, placing the current target.
