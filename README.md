@@ -20,17 +20,23 @@ pip install -r scripts/requirements.txt
 ```
 
 ### How to run the python script
-The python script can be launched by running : 
+
+The python script can be launched by running :
+
 ```bash
-python script/main.py 
+python script/main.py
 ```
-to run it with the default settings, or 
+
+to run it with the default settings, or
+
 ```bash
 python script/main.py -buidHelper
 ```
+
 to be guided through the different running parameter.
 
 The different parameters are :
+
 - -pre_move : Activate the premove
 - -state_bouncing : Activate the state-bouncing
 - -single_run : Make a single simulation run, instead of multiple one
@@ -41,19 +47,62 @@ The different parameters are :
 
 ### How to run the user interface
 
-
 To run the user interface, the user needs to install [Node.JS](https://nodejs.org/en).
 
 Then, everything can be installed by running :
+
 ```bash
 npm install
 ```
 
 After that, the page can be launched by running :
+
 ```bash
 npm run dev
 ```
-<!-- 
+
+## In depth look
+
+The goal of this project is to provide a control algorithm for the Isochronic's novel kinematic.
+This robot consist of a beam, with a set of rail on each side, and multiple sliders per side. It was programmed have two sliders work together at the same time.
+![The robot's beam](/img/ExcenterBeam.PNG)
+![The robot's slider](/img/miniDelta2D.png)
+With the current configuration, the layout consists of two conveyors, one for the inflow, and one for the outflow, in a counter-current configuration.
+
+This entire project was also made to be modular. Right now, the conveyors and the beams can be changed with the parameters, to fit the customer's need. However, it has mostly been tested with the current configuration and may present some bugs, which should be reported using a github issue.
+
+Ideally, in a later time, different kind of machine should be usable with this simulation tool, such as delta robots, for instance.
+
+### What does the python script do
+
+The python script runs the simulation offline, according to the specification from `params.json`. Then, it will run, by computing the robot's situation at every time step. It uses [ruckig](https://github.com/pantor/ruckig) as a profile generator. <br />
+In the control loop, there is a hierarchical state machine, with the first one being the state of the rails.
+![rail state loop](/img/RAILSTATE.drawio.png)
+Then, and only then, do we look at the state of the sliders, on said beam.
+The state machine can get a little complex, this decision flow chart explains the working fundamental of the code, for a slider. As mentionned previously, two sliders always work together, so their states are somewhat linked
+![Decision diagram](/img/NewSearchAlgo.drawio.png)
+
+An important notion to grasp to understand this code is the first and second slider.
+When looking at the list of available targets, we sort the said list using the scheduling. The higher a target is in the list, the higher its priority is. Using the same idea, we can define a first and second slider. The first slider should never ever block the second slider, unless it is picking the last item in a row, in which case the second slider is skipped. Following this logic, if the lowest x-value target is considered the highest priority, then the lowest x-value slider on a rail is considered the first slider.<br />
+This is a decision taken to ease the target assignment. Furthermore, the target assignment on the first slider is always permanent. The second isn't. When a target is given to the second slider, only then do we check for collisions, and then decide whether to keep the assigned target or not.<br />
+Finally, if only one of the two sliders has been assigned a target at a given timeframe, then the other slider's is set to be positionned next to the assigned slider, in order to avoid any possible collision.
+
+### The state-bouncing
+
+The state-bouncing is an improvement brought to the control algorithm after visually inspecting the simulations. The goal of this method is to prevent idle time when we can by attempting both picking and placing at the same time.
+<video width="320" height="240" controls>
+
+  <source src="/img/whystatebouncing.mp4" type="video/mp4">
+</video>
+<!-- ![Video showcasing why we need the state bouncing](/img/whystatebouncing.mp4) -->
+As seen in the video above, there are scenarios where only one of the two sliders pick a target, and then, we wait for the others to finally find a suitable target. However, in some cases, we may have time to go place the first target, and come back to the current conveyor, before the next one is available. To determine whether we can, we first try to do the current action, here picking, with a larger looking range which simulates a back and forth movement to the other conveyor. Then, if it wasn't succesful, we check whether we can do the other action, which is, here, placing the current target.
+
+![Video showcasing why we need the state bouncing](/img/statebouncingexample.mp4)
+
+![Video showcasing why we need the state bouncing](/img/whystatebouncing.mp4)
+![Video showcasing why we need the state bouncing](/img/whystatebouncing.mp4)
+
+<!--
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
