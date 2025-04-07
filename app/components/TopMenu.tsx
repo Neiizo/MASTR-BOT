@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 
 const TopMenu = () => {
   const tabName = [
-    // { name: "home", path: "/" },
     { name: "simulation", path: "/simulation" },
     { name: "parameter", path: "/parameter" },
   ];

@@ -55,7 +55,7 @@ def updateSliders(
                 errorPos = np.array(s.position[:-1]) - np.array(s.targetPosition[:2])
 
             if np.all(np.abs(errorPos) < conveyors.errorMargin) and np.all(
-                np.abs(s.currentVelocity) <= conveyors.errorMargin
+                np.abs(s.currentVelocity) <= s.safetyMargin
             ):
                 "If the position has been reached, changed the slider's state."
                 s.nextSliderState(conveyors, beams.railStatus[railID])
