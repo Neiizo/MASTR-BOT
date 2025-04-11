@@ -92,17 +92,43 @@ Finally, if only one of the two sliders has been assigned a target at a given ti
 The state-bouncing is an improvement brought to the control algorithm after visually inspecting the simulations. The goal of this method is to prevent idle time when we can by attempting both picking and placing at the same time.<br />
 <br />
 <video src="https://github.com/user-attachments/assets/e8cd0e13-5613-48cd-ba36-d255a9e199ea"></video>
-
 <br />
 As seen in the video above, there are scenarios where only one of the two sliders pick a target, and then, we wait for the others to finally find a suitable target. However, in some cases, we may have time to go place the first target, and come back to the current conveyor, before the next one is available. To determine whether we can, we first try to do the current action, here picking, with a larger looking range which simulates a back and forth movement to the other conveyor. Then, if it wasn't succesful, we check whether we can do the other action, which is, here, placing the current target.
+
+By enabling the state-bouncing, the following happens (look at slider 13 & 14) :
 <br />
 <video src="https://github.com/user-attachments/assets/686fbdf5-8b8c-4227-8ff8-56a4ccd98b18"></video>
-
 <br />
 
-![Video showcasing why we need the state bouncing](/img/whystatebouncing.mp4)
-![Video showcasing why we need the state bouncing](/img/whystatebouncing.mp4)
+### The pre-move
+The pre-move is another method which aims to improve to responsiveness of the system. When both slider have either picked/placed an item, we know that the next action will be to place/pick an item respectively. Therefore, we can already move the slider to the other conveyor.
 
+This is best seen when looked at the start routine :
+<br />
+<video src="https://github.com/user-attachments/assets/8f9b08fd-f119-49b1-b5b3-25b4fd6133d4"></video>
+<br />
+
+and with the pre-move enabled, this is the result :
+<br />
+<video src="https://github.com/user-attachments/assets/8f9e2240-a659-4165-89f6-14999b625601"></video>
+<br />
+
+With later modifications, this method has proven to be close to non impactful. The function responsible of looking for target candidate now has a similar behavior, where it looks for target with an additionnal range, which simulate the travel time from one conveyor to the other. However, the pre-move method was kept into the code, in case it is needed in the future.
+
+## Future work 
+Even though this master's project is done, the project itself can still be improved upon. It lays the foundation for future work to be done, and is available for anyone to use, under the specified license.
+
+Some possible improvement that could be brought to the code are :
+- [ ] A better start routine : Currently, the start routine isn't ideal. A lot of loss are created during this start routine, until the system stabilizes. One possible way to fix this would be to change the code so that the conveyor could start and stop, to avoid any loss, which brings to the next point :
+- [ ] To avoid any possible loss, the best way to be to have the conveyor start and stop, on demand. However, this approach isn't compatible with the `findViableTarget` function. This target makes the assumption the conveyor has a constant speed, and tries to find a meeting point between the slider and the target using this assumption. If the conveyor can now stop on demand, this function won't predict it, and it could lead to system's stalling, or even bricking. This should be kept in mind when trying to enable to the start/stop method. Furthermore, we would need to take into account the conveyor's acceleration and possibly the jerk too with this, which could change a lot of things.
+- [ ] Different scheduling options could be found, or a better analysis of the scheduling combination, to find a pattern and determine a rule of thumb, which would help decide which scheduling to use where, in which scenario.
+- [ ] A second layer of strategy could also be used, for instance to assign the target to each beam, as soon as they appear, as it was done in this [paper](https://ieeexplore.ieee.org/abstract/document/7301450?casa_token=yLKB8oO0aq4AAAAA:4Z4372dm-heJp0Yxi5GdeotyAFSdSkHB7RpAiZK7c0szd5nJMagHpaVIIeczfBGNn8QIARtqZA).
+- [ ] The program was mainly tested with the current layout. The goal of this software is to be flexible, and it should be tested, to find any bugs or unexpected behaviors.
+- [ ] Additionally, we could add different machines to the software, such as delta robot, to improve the flexibility of the firmware.
+
+These are only a few ideas, and there a certainly a lot more. You are welcome to try and improve this firmware however you want, and contribute to this github's page.
+
+I will personally try to keep working on it on my free time.
 <!--
 ## Getting started
 
