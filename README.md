@@ -1,7 +1,8 @@
 # MASTR BOT
 <p align="center">
-  ![Preview](/img/videoexamplegithub.gif)
+  <img src="/img/videoexamplegithub.gif" />
 </p>
+
 ## What is MASTR-BOT ?
 
 MASTR-BOT stands for multi-axis simultaneous transportation system, and is a master's thesis, conducted with Isochronic, on their novel technology.
@@ -10,7 +11,7 @@ In this project, user interface has been developped using Typescript (with React
 
 The entire control software for this project was also fully developped, using Python.
 
-There are a few explanation of how the program works, but for better understanding, I recommend reading the master's thesis report, which is available here.
+There are a few explanation of how the program works, but for better understanding, I recommend reading the master's thesis report, which is available [here](/MSc_Julien_Moreno_300840.pdf).
 
 ## Installation
 
